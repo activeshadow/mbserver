@@ -1,11 +1,10 @@
-[![Build Status](https://travis-ci.org/tbrandon/mbserver.svg?branch=master)](https://travis-ci.org/tbrandon/mbserver)
-[![Coverage Status](http://codecov.io/github/tbrandon/mbserver/coverage.svg?branch=master)](http://codecov.io/github/tbrandon/mbserver?branch=master)
-[![GoDoc](https://godoc.org/github.com/tbrandon/mbserver?status.svg)](https://godoc.org/github.com/tbrandon/mbserver)
-[![Software License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/tbrandon/mbserver/blob/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/activeshadow/mbserver?status.svg)](https://godoc.org/github.com/activeshadow/mbserver)
+[![Software License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/activeshadow/mbserver/blob/master/LICENSE)
 
 # Golang Modbus Server (Slave)
 
-The Golang Modbus Server (Slave) responds to the following Modbus function requests:
+The Golang Modbus Server (Slave) responds to the following Modbus
+function requests:
 
 Bit access:
 - Read Discrete Inputs
@@ -21,10 +20,13 @@ Bit access:
 
 TCP and serial RTU access is supported.
 
-The server internally allocates memory for 65536 coils, 65536 discrete inputs, 653356 holding registers and 65536 input registers.
-On start, all values are initialzied to zero.  Modbus requests are processed in the order they are received and will not overlap/interfere with each other.
+The server internally allocates memory for 65536 coils, 65536 discrete
+inputs, 653356 holding registers and 65536 input registers.  On start,
+all values are initialzied to zero.  Modbus requests are processed in
+the order they are received and will not overlap/interfere with each
+other.
 
-The golang [mbserver documentation](https://godoc.org/github.com/tbrandon/mbserver).
+The golang [mbserver documentation](https://godoc.org/github.com/activeshadow/mbserver).
 
 ## Example Modbus TCP Server
 
@@ -54,9 +56,10 @@ func main() {
 	}
 }
 ```
-The server will continue to listen until killed (&lt;ctrl>-c).
-Modbus typically uses port 502 (standard users require special permissions to listen on port 502). Change the port number as required.
-Change the address to 0.0.0.0 to listen on all network interfaces.
+The server will continue to listen until killed (&lt;ctrl>-c).  Modbus
+typically uses port 502 (standard users require special permissions to
+listen on port 502). Change the port number as required.  Change the
+address to 0.0.0.0 to listen on all network interfaces.
 
 An example of a client writing and reading holding regsiters:
 ```
@@ -93,9 +96,9 @@ results [0 3 0 4 0 5]
 
 ## Example Listening on Multiple TCP Ports and Serial Devices
 
-The Golang Modbus Server can listen on multiple TCP ports and serial devices.
-In the following example, the Modbus server will be configured to listen on
-127.0.0.1:1502, 0.0.0.0:3502, /dev/ttyUSB0 and /dev/ttyACM0
+The Golang Modbus Server can listen on multiple TCP ports and serial
+devices.  In the following example, the Modbus server will be configured
+to listen on 127.0.0.1:1502, 0.0.0.0:3502, /dev/ttyUSB0 and /dev/ttyACM0
 
 ```
 	serv := mbserver.NewServer()
@@ -146,7 +149,8 @@ Information on [serial port settings](https://godoc.org/github.com/goburrow/seri
 
 ## Server Customization
 
- RegisterFunctionHandler allows the default server functionality to be overridden for a Modbus function code.
+RegisterFunctionHandler allows the default server functionality to be
+overridden for a Modbus function code.
  ```
 func (s *Server) RegisterFunctionHandler(funcCode uint8, function func(*Server, Framer) ([]byte, *Exception))
  ```
@@ -215,7 +219,8 @@ results [255 255]
 
 ## Benchmarks
 
-Quanitify server read/write performance.  Benchmarks are for Modbus TCP operations.
+Quanitify server read/write performance.  Benchmarks are for Modbus TCP
+operations.
 
 Run benchmarks:
 ```
@@ -227,10 +232,12 @@ BenchmarkModbusWrite123MultipleRegisters-8        100000             22655 ns/op
 BenchmarkModbusRead125HoldingRegisters-8          100000             21117 ns/op
 PASS
 ```
-Operations per second are higher when requests are not forced to be  synchronously processed.
-In the case of simultaneous client access, synchronous Modbus request processing prevents data corruption.
+Operations per second are higher when requests are not forced to be
+synchronously processed.  In the case of simultaneous client access,
+synchronous Modbus request processing prevents data corruption.
 
-To understand performanc limitations, create a CPU profile graph for the WriteMultipleCoils benchmark:
+To understand performanc limitations, create a CPU profile graph for the
+WriteMultipleCoils benchmark:
 ```
 go test -bench=.MultipleCoils -cpuprofile=cpu.out
 go tool pprof modbus-server.test cpu.out
@@ -239,7 +246,9 @@ go tool pprof modbus-server.test cpu.out
 
 ## Race Conditions
 
-There is a [known](https://github.com/golang/go/issues/10001) race condition in the code relating to calling Serial Read() and Close() functions in different go routines.
+There is a [known](https://github.com/golang/go/issues/10001) race
+condition in the code relating to calling Serial Read() and Close()
+functions in different go routines.
 
 To check for race conditions, run:
 ```

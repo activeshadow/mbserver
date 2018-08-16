@@ -8,6 +8,10 @@ import (
 	"github.com/goburrow/serial"
 )
 
+// FunctionHandler defines a function type for defining custom Modbus
+// function code handlers.
+type FunctionHandler func(*Server, Framer) ([]byte, *Exception)
+
 // Server is a Modbus slave with allocated memory for discrete inputs, coils, etc.
 type Server struct {
 	// Debug enables more verbose messaging.
@@ -15,7 +19,7 @@ type Server struct {
 	listeners        []net.Listener
 	ports            []serial.Port
 	requestChan      chan *Request
-	function         [256](func(*Server, Framer) ([]byte, *Exception))
+	function         [256]FunctionHandler
 	DiscreteInputs   []byte
 	Coils            []byte
 	HoldingRegisters []uint16
@@ -55,8 +59,8 @@ func NewServer() *Server {
 }
 
 // RegisterFunctionHandler override the default behavior for a given Modbus function.
-func (s *Server) RegisterFunctionHandler(funcCode uint8, function func(*Server, Framer) ([]byte, *Exception)) {
-	s.function[funcCode] = function
+func (s *Server) RegisterFunctionHandler(code uint8, handler FunctionHandler) {
+	s.function[code] = handler
 }
 
 func (s *Server) handle(request *Request) Framer {
