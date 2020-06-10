@@ -62,6 +62,11 @@ func (frame *RTUFrame) Bytes() []byte {
 	return bytes
 }
 
+// GetUnitID returns the Modbus RTU Slave ID.
+func (frame *RTUFrame) GetUnitID() uint8 {
+	return frame.Address
+}
+
 // GetFunction returns the Modbus function code.
 func (frame *RTUFrame) GetFunction() uint8 {
 	return frame.Function

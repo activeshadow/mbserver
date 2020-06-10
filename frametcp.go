@@ -59,6 +59,11 @@ func (frame *TCPFrame) Bytes() []byte {
 	return bytes
 }
 
+// GetUnitID returns the Modbus TCP Unit ID.
+func (frame *TCPFrame) GetUnitID() uint8 {
+	return frame.Device
+}
+
 // GetFunction returns the Modbus function code.
 func (frame *TCPFrame) GetFunction() uint8 {
 	return frame.Function
