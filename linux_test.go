@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/goburrow/modbus"
+	"actshad.dev/modbus"
 	"github.com/goburrow/serial"
 )
 

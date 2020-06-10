@@ -68,7 +68,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/goburrow/modbus"
+	"actshad.dev/modbus"
 )
 
 func main() {

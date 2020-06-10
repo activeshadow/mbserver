@@ -1,6 +1,7 @@
 package mbserver
 
 import (
+	"context"
 	"io"
 	"log"
 
@@ -42,7 +43,7 @@ func (s *Server) acceptSerialRequests(port serial.Port) {
 				return
 			}
 
-			request := &Request{port, frame}
+			request := &Request{context.Background(), port, frame}
 
 			s.requestChan <- request
 		}
