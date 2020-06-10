@@ -1,4 +1,4 @@
-[![GoDoc](https://pkg.go.dev/actshad.dev/mbserver?status.svg)](https://pkg.go.dev/actshad.dev/mbserver)
+[![API Reference](https://img.shields.io/badge/godoc-reference-5272B4)](https://pkg.go.dev/actshad.dev/mbserver?tab=doc)
 [![Software License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/activeshadow/mbserver/blob/master/LICENSE)
 
 # Golang Modbus Server (Slave)
