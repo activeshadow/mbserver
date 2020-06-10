@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/activeshadow/mbserver?status.svg)](https://godoc.org/github.com/activeshadow/mbserver)
+[![GoDoc](https://pkg.go.dev/actshad.dev/mbserver?status.svg)](https://pkg.go.dev/actshad.dev/mbserver)
 [![Software License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/activeshadow/mbserver/blob/master/LICENSE)
 
 # Golang Modbus Server (Slave)
@@ -26,7 +26,7 @@ all values are initialzied to zero.  Modbus requests are processed in
 the order they are received and will not overlap/interfere with each
 other.
 
-The golang [mbserver documentation](https://godoc.org/github.com/activeshadow/mbserver).
+The golang [mbserver documentation](https://pkg.go.dev/actshad.dev/mbserver).
 
 ## Example Modbus TCP Server
 
