@@ -30,6 +30,7 @@ func (s *Server) accept(listen net.Listener) error {
 			defer conn.Close()
 
 			var (
+				user   string
 				roleID = asn1.ObjectIdentifier([]int{1, 3, 6, 1, 4, 1, 50316, 802, 1})
 				role   []byte
 			)
@@ -50,6 +51,7 @@ func (s *Server) accept(listen net.Listener) error {
 				for _, cert := range certs {
 					for _, ext := range cert.Extensions {
 						if ext.Id.Equal(roleID) {
+							user = cert.Subject.CommonName
 							role = ext.Value
 						}
 					}
@@ -84,6 +86,7 @@ func (s *Server) accept(listen net.Listener) error {
 				}
 
 				if role != nil {
+					ctx = context.WithValue(ctx, "Modbus-User", user)
 					ctx = context.WithValue(ctx, "Modbus-Role", string(role))
 				}
 
